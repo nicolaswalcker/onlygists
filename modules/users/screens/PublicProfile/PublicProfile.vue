@@ -29,7 +29,7 @@ function handleNavigationToDetail(id: string) {
 
   <WidgetDefault title="Todos os gists" sub-title="Veja todos os meus gists">
     <GistCardGroup>
-      <GistCardGroupLoader :loading="true">
+      <GistCardGroupLoader :loading="false">
         <GistCardItem id="123" title="useCurrentUser.ts" description="Hook para conrolar a store do **usuário**" :price="10" lang="typescript" @click="handleNavigationToDetail" />
       </GistCardGroupLoader>
     </GistCardGroup>

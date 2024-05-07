@@ -1,7 +1,5 @@
 <template>
-  <div>
-    <Button>
-      Change Message
-    </Button>
-  </div>
+  <NuxtLayout>
+    <NuxtPage />
+  </NuxtLayout>
 </template>

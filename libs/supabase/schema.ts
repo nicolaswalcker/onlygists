@@ -86,7 +86,8 @@ export type Database = {
           created_at: string
           email: string
           id: string
-          payment_connect_account: string | null
+          name: string
+          payment_connected_account: string | null
           phone: string | null
           site: string | null
           username: string
@@ -98,7 +99,8 @@ export type Database = {
           created_at?: string
           email: string
           id: string
-          payment_connect_account?: string | null
+          name: string
+          payment_connected_account?: string | null
           phone?: string | null
           site?: string | null
           username: string
@@ -110,7 +112,8 @@ export type Database = {
           created_at?: string
           email?: string
           id?: string
-          payment_connect_account?: string | null
+          name?: string
+          payment_connected_account?: string | null
           phone?: string | null
           site?: string | null
           username?: string

@@ -17,5 +17,6 @@ export default antfu({
   rules: {
     'tailwindcss/no-custom-classname': 'off',
     'tailwindcss/migration-from-tailwind-2': 'off',
+    'vue/custom-event-name-casing': 'off',
   },
 }))

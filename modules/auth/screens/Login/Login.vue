@@ -1,10 +1,13 @@
 <script setup>
 import SocialForm from '~/modules/auth/components/SocialForm/SocialForm.vue'
 
+const services = useServices()
 const loading = ref(false)
 
 async function handleGithubLogin() {
   loading.value = true
+  console.log('entrei')
+  await services.auth.signInWithGithub()
 }
 </script>
 

@@ -10,7 +10,7 @@ const props = withDefaults(defineProps<{
   loading: boolean
   lang: string
 }>(), {
-  isPaid: true,
+  isPaid: false,
   loading: false,
   lang: 'typescript',
   code: `

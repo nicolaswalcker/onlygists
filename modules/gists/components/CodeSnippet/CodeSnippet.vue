@@ -32,9 +32,9 @@ async function registerSyntaxHighlighting() {
   loading.value = false
 }
 
-onMounted(() => {
+watch(() => props.code, () => {
   registerSyntaxHighlighting()
-})
+}, { immediate: true })
 </script>
 
 <template>

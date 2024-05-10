@@ -1,6 +1,7 @@
 import type { SupabaseClient } from '@supabase/supabase-js'
 import { v4 as uuidv4 } from 'uuid'
 import type { CreateOptions } from './types'
+import { type ReadOneRow, readOneAdapter } from './adapters'
 import type { Database } from '@/libs/supabase/schema'
 
 export default (client: SupabaseClient<Database>) => ({
@@ -21,5 +22,17 @@ export default (client: SupabaseClient<Database>) => ({
     })
 
     return { id }
+  },
+
+  async readOne(id: string) {
+    const response = await client.from('gists').select('id, title, description, lang, price, is_paid, profiles (id, username)').match({ id }).returns<ReadOneRow>().single()
+
+    return readOneAdapter(response.data)
+  },
+
+  async readOneContent(id: string) {
+    const response = await client.from('gists').select('id, content').match({ id }).returns<ReadOneRow>().single()
+
+    return readOneAdapter(response.data)
   },
 })

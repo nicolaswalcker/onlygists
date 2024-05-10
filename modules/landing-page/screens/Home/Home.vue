@@ -7,6 +7,14 @@ const router = useRouter()
 function handleLogin() {
   router.push('/auth/login')
 }
+
+defineOgImage({
+  component: 'Main',
+  props: {
+    title: 'onlygists',
+    description: 'Compartilhe e monetize trechos de código.',
+  },
+})
 </script>
 
 <template>

@@ -10,10 +10,19 @@ export default defineNuxtConfig({
     '@nuxtjs/google-fonts',
     '@nuxtjs/supabase',
     '@nuxtjs/color-mode',
+    '@nuxtjs/seo',
   ],
   css: ['primeicons/primeicons.css'],
   imports: {
     dirs: ['./composables/useMarkdown', './composables/useServices', './composables/useLogger'],
+  },
+
+  site: {
+    url: process.env.SITE_URL,
+  },
+
+  ogImage: {
+    fonts: ['Poppins:300', 'Poppins:500', 'Poppins:700'],
   },
 
   supabase: {

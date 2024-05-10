@@ -55,9 +55,10 @@ function handleWantsBeCreator() {
         </HeaderLoader>
       </template>
       <template #content>
-        <Splash :loading="loading">
+        <Splash :loading="loading" />
+        <div v-show="!loading">
           <slot />
-        </Splash>
+        </div>
       </template>
     </MainContent>
   </div>

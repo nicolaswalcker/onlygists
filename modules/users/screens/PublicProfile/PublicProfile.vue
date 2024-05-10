@@ -49,6 +49,22 @@ function handleNavigationToDetail(id: string) {
 
   router.push(`/${username}/gist/${id}`)
 }
+
+defineOgImage({
+  component: 'PublicProfile',
+  props: {
+    author: user.value?.name,
+    bio: user.value?.bio,
+    avatarUrl: user.value?.avatarUrl,
+  },
+})
+
+useSeoMeta({
+  title: `${user.value?.name} - @${user.value?.username}`,
+  ogTitle: `${user.value?.name} - @${user.value?.username}`,
+  description: `Veja os gists de ${user.value?.name} no onlygists.`,
+  ogDescription: `Veja os gists de ${user.value?.name} no onlygists.`,
+})
 </script>
 
 <template>

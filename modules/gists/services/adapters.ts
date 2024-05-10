@@ -28,3 +28,29 @@ export function readOneAdapter(data: ReadOneRow | null): GistVirtual | null {
     createdAt: new Date(data.created_at),
   }
 }
+
+export type ReadAllRow = GistTable['Row'] & {
+  profiles: ProfileTable['Row'] | null
+}
+
+export function readAllAdapter(values: ReadAllRow[] | null): GistVirtual[] {
+  if (!values)
+    return []
+  const newValues = values.map(data => ({
+    id: data.id,
+    title: data.title,
+    description: data.description,
+    lang: data.lang,
+    price: data.price,
+    isPaid: data.is_paid,
+    profileId: data.profile_id ?? '',
+    profiles: {
+      id: data.profiles?.id,
+      username: data.profiles?.username,
+    },
+    content: data.content,
+    createdAt: new Date(data.created_at),
+  }))
+
+  return newValues
+}

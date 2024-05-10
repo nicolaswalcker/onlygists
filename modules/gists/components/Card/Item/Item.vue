@@ -34,7 +34,7 @@ function handleClick() {
 
 <template>
   <div class="card">
-    <Card>
+    <Card class="overflow-hidden">
       <template #title>
         <div class="flex flex-wrap gap-2">
           {{ props.title }}
@@ -42,7 +42,7 @@ function handleClick() {
         </div>
       </template>
       <template #content>
-        <div v-html="description" />
+        <div class="line-clamp-2" v-html="description" />
       </template>
       <template #footer>
         <Button v-if="isFree" label="Baixar gratuitamente" class="w-full" icon-pos="right" icon="pi pi-shopping-bag" @click="handleClick" />

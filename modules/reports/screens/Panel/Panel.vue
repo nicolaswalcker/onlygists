@@ -13,7 +13,6 @@ import { useGistsList } from '~/modules/gists/composables/useGistList/useGistLis
 
 const { user } = inject(myselfKey) as MyselfContextProvider
 const router = useRouter()
-const route = useRoute()
 const { arrivedState } = useScroll(window, {
   offset: { bottom: 100 },
 })
@@ -39,9 +38,7 @@ watch(() => arrivedState.bottom, () => {
 })
 
 function handleNavigationToDetail(id: string) {
-  const { username } = route.params
-
-  router.push(`/${username}/gist/${id}`)
+  router.push(`/${user.value?.username}/gist/${id}`)
 }
 </script>
 

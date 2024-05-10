@@ -1,4 +1,5 @@
 import type { SupabaseClient } from '@supabase/supabase-js'
+import { type RevenueRow, totalRevenueAdapter } from './adapters'
 import type { Database } from '~/libs/supabase/schema'
 
 export default (client: SupabaseClient<Database>) => ({
@@ -24,5 +25,15 @@ export default (client: SupabaseClient<Database>) => ({
     const response = await client.from('sales').select('*, gists(profile_id)').match({ 'gists.profile_id': userId })
 
     return response.count
+  },
+
+  async totalRevenue(userId: string) {
+    const response = await client
+      .from('sales')
+      .select('gists(price, profile_id)')
+      .match({ 'gists.profile_id': userId })
+      .returns<RevenueRow[]>()
+
+    return totalRevenueAdapter(response.data)
   },
 })

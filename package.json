@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@guolao/vue-monaco-editor": "^1.5.1",
+    "@nuxtjs/color-mode": "^3.4.1",
     "@nuxtjs/google-fonts": "^3.2.0",
     "@nuxtjs/supabase": "^1.2.2",
     "@nuxtjs/tailwindcss": "^6.12.0",

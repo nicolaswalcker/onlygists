@@ -1,4 +1,5 @@
 import path from 'node:path'
+import process from 'node:process'
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
@@ -8,6 +9,7 @@ export default defineNuxtConfig({
     '@nuxtjs/tailwindcss',
     '@nuxtjs/google-fonts',
     '@nuxtjs/supabase',
+    '@nuxtjs/color-mode',
   ],
   css: ['primeicons/primeicons.css'],
   imports: {

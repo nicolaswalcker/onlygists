@@ -6,7 +6,6 @@ const loading = ref(false)
 
 async function handleGithubLogin() {
   loading.value = true
-  console.log('entrei')
   await services.auth.signInWithGithub()
 }
 </script>

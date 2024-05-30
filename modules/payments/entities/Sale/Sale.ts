@@ -19,5 +19,8 @@ export function applyPayoutFeesToGrossValue(grossValue: number): number {
   const totalValue = grossValue - fee
   const netValue = totalValue - FIXED_STRIPE_TRANSFER_TAX
 
+  if (netValue <= 0)
+    return 0
+
   return netValue
 }

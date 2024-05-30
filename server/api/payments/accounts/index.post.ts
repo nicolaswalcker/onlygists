@@ -1,6 +1,6 @@
 import { useServerStripe } from '#stripe/server'
 import { serverSupabaseClient } from '#supabase/server'
-import type { Database } from '~/libs/supabase/schema'
+import type { Database } from '@/libs/supabase/schema'
 
 interface RequestOptions {
   email: string
@@ -12,14 +12,14 @@ export default defineEventHandler(async (event) => {
   if (!payload.email) {
     throw createError({
       status: 400,
-      statusMessage: 'Email is required',
+      statusMessage: '`email` is required',
     })
   }
 
   if (!event.context.auth.isAuthenticated) {
     throw createError({
       status: 401,
-      statusMessage: 'Unauthorized',
+      statusMessage: 'user not authenticated',
     })
   }
 
@@ -34,14 +34,17 @@ export default defineEventHandler(async (event) => {
     business_type: 'individual',
   })
 
-  await supabase.from('profiles').update({
-    payment_connected_account: account.id,
-  }).eq('email', payload.email)
+  await supabase
+    .from('profiles')
+    .update({
+      payment_connected_account: account.id,
+    })
+    .eq('email', payload.email)
 
   const accountLink = await stripe.accountLinks.create({
     account: account.id,
-    refresh_url: `${config.publi.publicUrl}/app/painel`,
-    return_url: `${config.publi.publicUrl}/app/painel`,
+    refresh_url: `${config.public.siteUrl}/app/panel`,
+    return_url: `${config.public.siteUrl}/app/panel`,
     type: 'account_onboarding',
   })
 

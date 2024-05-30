@@ -3,6 +3,7 @@ import type { AxiosInstance } from 'axios'
 import type { ReadAllSalesRow } from './adapters'
 import { readAllSalesAdapter } from './adapters'
 import type { Database } from '~/libs/supabase/schema'
+import type { CreateCheckoutOptions, CreateCheckoutResponse, CreatePayoutAccountResponse, IsAccountValidResponse } from '~/modules/payments/services/types'
 
 export default (client: SupabaseClient<Database>, httpClient: AxiosInstance) => ({
   async readAllSales(userId: string) {
@@ -11,13 +12,19 @@ export default (client: SupabaseClient<Database>, httpClient: AxiosInstance) => 
     return readAllSalesAdapter(response.data)
   },
 
-  async createCheckout() {},
+  async createCheckout({ username, gistId, price }: CreateCheckoutOptions) {
+    const response = await httpClient.post<CreateCheckoutResponse>('/payments/checkout', { username, gistId, price })
 
-  async createPayoutAccount(email: string) {
-
+    return response
   },
 
-  async isValidAccount(accountId: string) {
+  async createPayoutAccount(email: string) {
+    const response = await httpClient.post<CreatePayoutAccountResponse>('/payments/accounts', { email })
+
+    return response
+  },
+
+  async isAccountValid(accountId: string) {
     const response = await httpClient.get<IsAccountValidResponse>(`/payments/accounts/${accountId}/valid`)
 
     return response

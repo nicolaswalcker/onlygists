@@ -5,13 +5,20 @@ import WidgetGroupLoader from '~/modules/reports/components/Widget/Group/Loader.
 import WidgetCondensed from '~/modules/reports/components/Widget/Condensed/Condensed.vue'
 import GistCardGroup from '~/modules/gists/components/Card/Group/Group.vue'
 import GistCardItem from '~/modules/gists/components/Card/Item/Item.vue'
+import PaymentSetupAlert from '~/modules/payments/components/PaymentSetupAlert/PaymentSetupAlert.vue'
 import GistCardGroupLoader from '~/modules/gists/components/Card/Group/Loader.vue'
 import type { MyselfContextProvider } from '~/modules/users/composables/useMyself/types'
 import { myselfKey } from '~/modules/users/composables/useMyself/useMyself'
 import { useGistsReport } from '~/modules/reports/composables/useGistsReport/useGistsReport'
 import { useGistsList } from '~/modules/gists/composables/useGistList/useGistList'
+import { useStripeAccountValidate } from '~/modules/payments/composables/useStripeAccountValidate/useStripeAccountValidate'
+import { useStripeAccountCreate } from '~/modules/payments/composables/useStripeAccountCreate/useStripeAccountCreate'
 
 const { user } = inject(myselfKey) as MyselfContextProvider
+
+const { loading: paymentCreateLoading, create } = useStripeAccountCreate()
+const { isValid, validate } = useStripeAccountValidate()
+
 const router = useRouter()
 const { arrivedState } = useScroll(window, {
   offset: { bottom: 100 },
@@ -40,9 +47,27 @@ watch(() => arrivedState.bottom, () => {
 function handleNavigationToDetail(id: string) {
   router.push(`/${user.value?.username}/gist/${id}`)
 }
+
+async function handlePaymentSetup() {
+  if (!user.value?.email)
+    return
+  const response = await create(user.value?.email)
+
+  if (!response)
+    return
+
+  window.location.href = response.onboardingUrl
+}
+
+onMounted(() => {
+  if (!user.value?.paymentConnectedAccount)
+    return
+  validate(user.value?.paymentConnectedAccount)
+})
 </script>
 
 <template>
+  <PaymentSetupAlert v-if="!isValid" :loading="paymentCreateLoading" @setup="handlePaymentSetup" />
   <WidgetGroup>
     <WidgetGroupLoader :amount="3" :loading="reportLoading">
       <WidgetCondensed :value="totalGists" label="Gists no total" />

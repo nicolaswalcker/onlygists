@@ -1,24 +1,24 @@
 import { useServerStripe } from '#stripe/server'
 
 export default defineEventHandler(async (event) => {
-  const accountid = getRouterParam(event, 'accountid')
+  const accountId = getRouterParam(event, 'accountid')
 
-  if (!accountid) {
+  if (!accountId) {
     throw createError({
       status: 400,
-      statusMessage: 'accountid is required',
+      statusMessage: '`accountId` is required',
     })
   }
 
   if (!event.context.auth.isAuthenticated) {
     throw createError({
       status: 401,
-      statusMessage: 'Unauthorized',
+      statusMessage: 'user not authenticated',
     })
   }
 
   const stripe = await useServerStripe(event)
-  const account = await stripe.accounts.retrieve(accountid)
+  const account = await stripe.accounts.retrieve(accountId)
 
   return {
     isValid: account.details_submitted,

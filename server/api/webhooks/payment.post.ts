@@ -56,17 +56,17 @@ export default defineLazyEventHandler(async () => {
     const buffer = await zip.generateAsync({ type: 'nodebuffer' })
     const resend = new Resend(config.resendKey)
 
-    // const template = await useCompiler('GistSale.vue', {
-    //   props: {
-    //     name: paymentIntentEvent.customer_details.name,
-    //   },
-    // })
+    const template = await useCompiler('GistSale.vue', {
+      props: {
+        name: paymentIntentEvent.customer_details.name,
+      },
+    })
 
     resend.emails.send({
       from: 'nicolas@onlygists.online',
       to: paymentIntentEvent.customer_details.email,
       subject: 'Seu gist chegou! Onlygists',
-      html: '',
+      html: template.html,
       attachments: [
         {
           filename: `${gist.data?.title}.zip`,

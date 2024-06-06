@@ -74,11 +74,4 @@ export default defineNuxtConfig({
       htmlAttrs: { lang: 'pt-BR' },
     },
   },
-  nitro: {
-    esbuild: {
-      options: {
-        target: 'es2020',
-      },
-    },
-  },
 })
